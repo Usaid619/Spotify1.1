@@ -1,28 +1,44 @@
 // CSS RELATED
 
+// Selecting Elements
 const searchGlass = document.querySelector(".search-glass")
 const searchInput = document.querySelector(".search-input")
-
-searchGlass.addEventListener("click",()=>{
-searchInput.classList.toggle("hovered")
-})
-
 const scrollDiv = document.querySelector(".right-scrollable-container")
 const header = document.querySelector(".right-header")
-
-scrollDiv.addEventListener("scroll",(e)=>{
-const y = scrollDiv.scrollTop
-y > 20 ? header.classList.add("scrolled") : header.classList.remove("scrolled")
-})
-
 const heart = document.querySelector(".heart")
-heart.addEventListener("click",()=>{
-    heart.classList.toggle("liked")
-})
+
+
+// Making Functions
+
+function toggleState(){
+  searchInput.classList.toggle("clicked")
+}
+
+function changeHeaderBackground(){
+  const y = scrollDiv.scrollTop
+  y > 20 ? header.classList.add("scrolled") : header.classList.remove("scrolled")
+}
+
+function toggleLike(){
+  heart.classList.toggle("liked")
+}
+
+// Hooking Up Event Listeners
+
+searchGlass.addEventListener("click",toggleState)
+scrollDiv.addEventListener("scroll",changeHeaderBackground)
+heart.addEventListener("click",toggleLike)
+
+//////////////////////////////////////////
+//////////////////////////////////////////
+
 
 // JSON RELATED
+
+// Hooking Up Event Listeners
 window.addEventListener("load",init)
 
+// Making Functions
 function init(){
 fetchAndRenderAllSections()
 }
@@ -44,27 +60,22 @@ function fetchAndRenderAllSections(){
 
 function renderSection(title,songsList){
   const section = makeSectionDom(title,songsList)
-
   const rightScrollableContainer = document.querySelector(".right-scrollable-container")
   rightScrollableContainer.appendChild(section)
 }
 
 function makeSectionDom(title,songsObj){
-
   const div = document.createElement("div")
   div.className = "big-cards-div"
-
   div.innerHTML = `
   <div class="heading-wrap">
                <h3 class="heading">${title}</h3> 
                <p>Show All</p>
             </div>
-              
             <div class="big-cards">
                  ${songsObj.map(song => makeBigCardDom(song)).join("")}
             </div>
   `
-
   return div
 }
 
@@ -74,8 +85,7 @@ function makeBigCardDom(songsList){
 return `
 <div class="big-card" onclick="playSong('${songsObjInStr}')">
 <div class="big-card-img-div">
-    <img src="${songsList.image_source
-    }" alt="${songsList.song_name}">
+    <img src="${songsList.image_source}" alt="${songsList.song_name}">
     <div class="big-card-overlay">
         <i class="fa-solid fa-play"></i>
     </div>
@@ -88,13 +98,16 @@ return `
 `
 }
 
+
+//////////////////////////////////////////
+//////////////////////////////////////////
+
 // CONTROLS RELATED
 
-// Select Elements
-
+// Selecting Elements
+// Elements For Playback
 const footer = document.querySelector("footer")
 const audio = footer.querySelector("audio")
-
 
 const currentSongImg = footer.querySelector(".current-song-img")
 const currentSongTitle = footer.querySelector(".current-song-title")
@@ -117,19 +130,19 @@ const soundMute = footer.querySelector(".fa-volume-xmark")
 const soundLow = footer.querySelector(".fa-volume-low")
 const soundHigh = footer.querySelector(".fa-volume-high")
 
-// Make Functions
+// Making Functions
 
-audio.addEventListener("loadedmetadata",function(){
+// Playback Functions
+function setDefaultVolumeAndTrackDuration(){
+  audio.volume = 0.5
   timeline.max = audio.duration.toFixed(2)
-})
+}
 
 function togglePlay(){
-  
-  if(audio.paused){
-   audio.play()
-  } else{
-   audio.pause()
-  }
+  if(audio.src == "http://127.0.0.1:5500/"){
+    return
+  }  
+  audio.paused ? audio.play() : audio.pause()
 }
 
 function updateTime(){
@@ -163,13 +176,17 @@ currentSongSinger.innerHTML = currentSongObj.singers
 }
 
 function changePlayPauseButton(){
-  if(this.paused){
-    play.style.display = "block"
-    pause.style.display = "none"
-  } else{
-    pause.style.display = "block"
-    play.style.display = "none"
-  }
+    switch (this.paused) {
+      case true:
+        play.style.display = "block"
+        pause.style.display = "none"
+        break
+
+      case false:
+        pause.style.display = "block"
+        play.style.display = "none"
+        break
+    }
 }
 
 function syncTimeline(){
@@ -199,11 +216,7 @@ if(this.value > 50){
 
 function toggleLoop(){
   repeat.classList.toggle("looping")
-  if(repeat.classList.contains("looping")){
-    audio.setAttribute("loop","")
-  } else{
-    audio.removeAttribute("loop","")
-  }
+  repeat.classList.contains("looping") ? audio.setAttribute("loop","") : audio.removeAttribute("loop","")
 }
 
 function startOver(){
@@ -220,10 +233,40 @@ function backFive(){
 
 function skipFive(){
   audio.currentTime += 5
+}  
+
+
+// UI Functions
+
+function closeSearchInput(e){
+  !e.target.classList.contains("search-glass") && !e.target.classList.contains("search-input")
+  ? searchInput.classList.remove("clicked")
+  : null
 }
 
-// Hook Up Event Listeners
+// Keyboard Functions
 
+function keyBoardFunctions(e){
+  switch(e.keyCode){
+    case 32:
+      e.preventDefault()
+      togglePlay()
+    break
+
+    case 37:
+      backFive()
+    break
+    
+    case 39:
+      skipFive()
+    break
+  }
+}
+
+// Hooking Up Event Listeners
+
+// Listeners For Playback
+audio.addEventListener("loadedmetadata", setDefaultVolumeAndTrackDuration)
 audio.addEventListener("play",changePlayPauseButton)
 audio.addEventListener("pause",changePlayPauseButton)
 audio.addEventListener("timeupdate",syncTimeline)
@@ -242,10 +285,6 @@ timeline.addEventListener("input",seekableTimeline)
 volume.addEventListener("input",volumeControl)
 
 
-
-document.addEventListener("keyup",(key)=>{
-  
-  if(key.code == "Space"){
-    togglePlay()
-  }
-})
+// Listeners For Document
+document.addEventListener("click", closeSearchInput)
+document.addEventListener("keydown",keyBoardFunctions)
