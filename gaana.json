@@ -1,0 +1,194 @@
+{
+     "current_playlist":[],
+     "cardbox":
+    [
+         {"songsbox":"Vibe",
+         "songscards":[
+            {"id":0,
+            "playlist_type":false,
+            "playlist":null,
+            "song_name":"Deja Vu",
+            "album_name":"",
+            "singers":"Yung Da$",
+            "image_source":"./Assets/Images/deja vu.jpg",
+            "quality":{"low":"","medium":"","high":"./Assets/Songs/deja vu.mp3"},
+            "release_date":"date"      
+            },
+        {
+           "id":1,
+            "playlist_type":false,
+            "playlist":null,
+            "song_name":"You Got This",
+            "album_name":"",
+            "singers":"Fotty Seven",
+            "image_source":"./Assets/Images/you got this.jpg",
+            "quality":{"low":"","medium":"","high":"./Assets/Songs/you got this.mp3"},
+            "release_date":"date"    
+           },
+        {
+            "id":2,
+            "playlist_type":false,
+            "playlist":null,
+            "song_name":"I Guess",
+            "album_name":"",
+            "singers":"Kr$na",
+            "image_source":"./Assets/Images/i guess.jpg",
+            "quality":{"low":"","medium":"","high":"./Assets/Songs/i guess.mp3"},
+            "release_date":"date"
+        },
+        {
+           "id":3,
+            "playlist_type":false,
+            "playlist":null,
+            "song_name":"Jaadugar",
+            "album_name":"",
+            "singers":"Paradox",
+            "image_source":"./Assets/Images/jaadugar.jpg",
+            "quality":{"low":"","medium":"","high":"./Assets/Songs/jaadugar.mp3"},
+            "release_date":"date"}
+         ]
+         },
+         {"songsbox":"Your Favourites",
+         "songscards":[
+            {"id":0,
+            "playlist_type":false,
+            "playlist":null,
+            "song_name":"Utah Freestyle",
+            "album_name":"",
+            "singers":"Russ",
+            "image_source":"./Assets/Images/utah freestyle.jpg",
+            "quality":{"low":"","medium":"","high":"./Assets/Songs/utah freestyle.mp3"},
+            "release_date":"date"      
+            },
+        {
+           "id":1,
+            "playlist_type":false,
+            "playlist":null,
+            "song_name":"When You Love Someone",
+            "album_name":"",
+            "singers":"James TW",
+            "image_source":"./Assets/Images/when you love someone.jpg",
+            "quality":{"low":"","medium":"","high":"./Assets/Songs/when you love someone.mp3"},
+            "release_date":"date"    
+           },
+        {
+            "id":2,
+            "playlist_type":false,
+            "playlist":null,
+            "song_name":"Steal My Girl",
+            "album_name":"",
+            "singers":"One Direction",
+            "image_source":"./Assets/Images/steal my girl.jpg",
+            "quality":{"low":"","medium":"","high":"./Assets/Songs/steal my girl.mp3"},
+            "release_date":"date"
+        },
+        {
+           "id":3,
+            "playlist_type":false,
+            "playlist":null,
+            "song_name":"Surface",
+            "album_name":"",
+            "singers":"ABdullah Siddique, Talha Anjum",
+            "image_source":"./Assets/Images/surface.jpg",
+            "quality":{"low":"","medium":"","high":"./Assets/Songs/surface.mp3"},
+            "release_date":"date"}
+         ]
+         },
+        {"songsbox":"Revisit The Past",
+         "songscards":[
+             {"id":0,
+                 "playlist_type":false,
+                 "playlist":null,
+                 "song_name":"The Woman For Me",
+                 "album_name":"",
+                 "singers":"Rayland Baxter",
+                 "image_source":"./Assets/Images/the woman for me.jpg",
+                 "quality":{"low":"","medium":"","high":"./Assets/Songs/the woman for me.mp3"},
+                 "release_date":"date"      
+                 },
+             {
+                "id":1,
+                 "playlist_type":false,
+                 "playlist":null,
+                 "song_name":"Iraaday",
+                 "album_name":"",
+                 "singers":"Abdul Hanna. Rovalio",
+                 "image_source":"./Assets/Images/iraaday.jpg",
+                 "quality":{"low":"","medium":"","high":"./Assets/Songs/iraaday.mp3"},
+                 "release_date":"date"    
+                },
+             {
+                 "id":2,
+                 "playlist_type":false,
+                 "playlist":null,
+                 "song_name":"Another Love",
+                 "album_name":"",
+                 "singers":"Tom Odell",
+                 "image_source":"./Assets/Images/another love.jpg",
+                 "quality":{"low":"","medium":"","high":"./Assets/Songs/another love.mp3"},
+                 "release_date":"date"
+             },
+             {
+                "id":3,
+                 "playlist_type":false,
+                 "playlist":null,
+                 "song_name":"Say You Won't Let Go",
+                 "album_name":"",
+                 "singers":"James Arthur",
+                 "image_source":"./Assets/Images/say you won't let go.jpeg",
+                 "quality":{"low":"","medium":"","high":"./Assets/Songs/say you wont let go.mp3"},
+                 "release_date":"date"
+              }
+                
+         ]
+         },
+        {"songsbox":"On Loop",
+         "songscards":[
+             {"id":0,
+                 "playlist_type":false,
+                 "playlist":null,
+                 "song_name":"Atlantis",
+                 "album_name":"",
+                 "singers":"Seafret",
+                 "image_source":"./Assets/Images/atlantis.jpg",
+                 "quality":{"low":"","medium":"","high":"./Assets/Songs/atlantis.mp3"},
+                 "release_date":"date"      
+                 },
+             {
+                "id":1,
+                 "playlist_type":false,
+                 "playlist":null,
+                 "song_name":"Dil Nu",
+                 "album_name":"",
+                 "singers":"AP Dhillon",
+                 "image_source":"./Assets/Images/dil nu 1.jpg",
+                 "quality":{"low":"","medium":"","high":"./Assets/Songs/dil nu.mp3"},
+                 "release_date":"date"    
+                },
+             {
+                 "id":2,
+                 "playlist_type":false,
+                 "playlist":null,
+                 "song_name":"A Change Of Heart",
+                 "album_name":"",
+                 "singers":"The 1975",
+                 "image_source":"./Assets/Images/a change of heart.jpg",
+                 "quality":{"low":"","medium":"","high":"./Assets/Songs/a change of heart.mp3"},
+                 "release_date":"date"
+             },
+             {
+                "id":3,
+                 "playlist_type":false,
+                 "playlist":null,
+                 "song_name":"I Wanna Be Yours",
+                 "album_name":"",
+                 "singers":"Arctic Monkey",
+                 "image_source":"./Assets/Images/I wanna be yours.jpg",
+                 "quality":{"low":"","medium":"","high":"./Assets/Songs/i wanna be yours.mp3"},
+                 "release_date":"date"
+                }
+            ]
+         }
+         
+     ]
+}
