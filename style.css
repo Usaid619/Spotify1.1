@@ -990,16 +990,26 @@ progress::-webkit-progress-value{
     color: white;
 }
 
+.volume-control{
+    display: flex;
+    gap: 4px;
+}
+
+.volume-control > svg{
+    height: 16px;
+    width: 16px;
+    fill: #fff;
+}
+
+.volume-mute,.volume-low,.volume-high{
+    display: none;
+}
+
 .controls input{
     /* position: relative;
     z-index: 3;  */
     cursor: pointer;
     width: 100%;
-}
-
-.volume-control{
-    display: flex;
-    gap: 4px;
 }
 
 .volume-progress__div{
@@ -1011,21 +1021,6 @@ progress::-webkit-progress-value{
     /* display: flex; */
 }
 
-.fa-volume-xmark{
-    color: rgb(168, 32, 32);
-}
-
-.fa-volume-low{
-    color: #41cc72;
-}
-
-.fa-volume-high{
-    color: #1a9c47;
-}
-
-.fa-volume-xmark,.fa-volume-low{
-    display: none;
-}
 
 .small-screen-message{
     display: none;

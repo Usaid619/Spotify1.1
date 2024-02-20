@@ -132,9 +132,10 @@ const volumeProgress = footer.querySelector("#volume-progress")
 const timeStart = footer.querySelector("#time-start")
 const totalTime = footer.querySelector("#total-time")
 const soundControl = footer.querySelector(".volume-control")
-const soundMute = footer.querySelector(".fa-volume-xmark")
-const soundLow = footer.querySelector(".fa-volume-low")
-const soundHigh = footer.querySelector(".fa-volume-high")
+const soundMute = footer.querySelector(".volume-mute")
+const soundLow = footer.querySelector(".volume-low")
+const soundMedium = footer.querySelector(".volume-medium")
+const soundHigh = footer.querySelector(".volume-high")
 
 // Making Functions
 
@@ -215,18 +216,26 @@ function seekableTimeline(){
 
 function volumeControl(){
 audio.volume = this.value/100
-if(this.value > 50){
-  soundLow.style.display = "none"
-  soundMute.style.display = "none"
-  soundHigh.style.display = "block"
-} if(this.value < 50){
-  soundLow.style.display = "block"
-  soundMute.style.display = "none"
-  soundHigh.style.display = "none"
-} if(this.value == 0){
-  soundLow.style.display = "none"
+ if(this.value == 0){
   soundMute.style.display = "block"
+  soundLow.style.display = "none"
+  soundMedium.style.display = "none"
   soundHigh.style.display = "none"
+} if(this.value > 0){
+  soundMute.style.display = "none"
+  soundLow.style.display = "block"
+  soundMedium.style.display = "none"
+  soundHigh.style.display = "none"
+} if(this.value > 30){
+  soundMute.style.display = "none"
+  soundLow.style.display = "none"
+  soundMedium.style.display = "block"
+  soundHigh.style.display = "none"
+} if(this.value > 70){
+  soundMute.style.display = "none"
+  soundLow.style.display = "none"
+  soundMedium.style.display = "none"
+  soundHigh.style.display = "block"
 }
 
 volumeProgress.value = this.value
