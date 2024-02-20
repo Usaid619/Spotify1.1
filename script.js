@@ -20,7 +20,11 @@ function changeHeaderBackground(){
 }
 
 function toggleLike(){
-  heart.classList.toggle("liked")
+  if(audio.src == "http://127.0.0.1:5500/"){
+    return
+  } else{
+     heart.classList.toggle("liked")
+  }
 }
 
 // Hooking Up Event Listeners
@@ -122,7 +126,9 @@ const play = footer.querySelector("#play")
 const pause = footer.querySelector("#pause")
 const repeat = footer.querySelector(".fa-repeat")
 const timeline = footer.querySelector("#song-progress")
+const progress = footer.querySelector("progress")
 const volume = footer.querySelector("#volume")
+const volumeProgress = footer.querySelector("#volume-progress")
 const timeStart = footer.querySelector("#time-start")
 const totalTime = footer.querySelector("#total-time")
 const soundControl = footer.querySelector(".volume-control")
@@ -159,6 +165,11 @@ function updateTime(){
   const totalSeconds = ~~(totalDuration % 60)
   const formattedTotalTime = totalMinutes + ":" + (totalSeconds < 10 ? "0" : "") + totalSeconds
   totalTime.innerHTML = formattedTotalTime
+
+  // Setting progressBar
+  let progressValue = (audio.currentTime / audio.duration) * 100
+  
+  !isNaN(progressValue) ?  progress.value = progressValue : null
 }
 
 function playSong(songsObjInStr){
@@ -166,6 +177,10 @@ function playSong(songsObjInStr){
    audio.src = songObj.quality.high
    updateUI(songObj)
    togglePlay()
+
+   if(heart.classList.contains("liked")){
+    toggleLike()
+   }
    }
   
 
@@ -191,6 +206,7 @@ function changePlayPauseButton(){
 
 function syncTimeline(){
 timeline.value = audio.currentTime
+progress.value = timeline.value
 }
 
 function seekableTimeline(){
@@ -212,6 +228,8 @@ if(this.value > 50){
   soundMute.style.display = "block"
   soundHigh.style.display = "none"
 }
+
+volumeProgress.value = this.value
 }
 
 function toggleLoop(){
