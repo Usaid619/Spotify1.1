@@ -7,9 +7,7 @@ const scrollDiv = document.querySelector(".right-scrollable-container")
 const header = document.querySelector(".right-header")
 const heart = document.querySelector(".heart")
 
-
 // Making Functions
-
 function toggleState(){
   searchInput.classList.toggle("clicked")
 }
@@ -28,14 +26,12 @@ function toggleLike(){
 }
 
 // Hooking Up Event Listeners
-
 searchGlass.addEventListener("click",toggleState)
 scrollDiv.addEventListener("scroll",changeHeaderBackground)
 heart.addEventListener("click",toggleLike)
 
 //////////////////////////////////////////
 //////////////////////////////////////////
-
 
 // JSON RELATED
 
@@ -102,7 +98,6 @@ return `
 `
 }
 
-
 //////////////////////////////////////////
 //////////////////////////////////////////
 
@@ -112,6 +107,7 @@ return `
 // Elements For Playback
 const footer = document.querySelector("footer")
 const audio = footer.querySelector("audio")
+audio.volume = 0.5
 
 const currentSongImg = footer.querySelector(".current-song-img")
 const currentSongTitle = footer.querySelector(".current-song-title")
@@ -140,8 +136,7 @@ const soundHigh = footer.querySelector(".volume-high")
 // Making Functions
 
 // Playback Functions
-function setDefaultVolumeAndTrackDuration(){
-  audio.volume = 0.5
+function setTrackDuration(){
   timeline.max = audio.duration.toFixed(2)
 }
 
@@ -184,7 +179,6 @@ function playSong(songsObjInStr){
    }
    }
   
-
 function updateUI(currentSongObj){
 currentSongImg.src = currentSongObj.image_source
 currentSongTitle.innerHTML = currentSongObj.song_name
@@ -214,32 +208,48 @@ function seekableTimeline(){
   audio.currentTime = this.value
 }
 
-function volumeControl(){
-audio.volume = this.value/100
- if(this.value == 0){
-  soundMute.style.display = "block"
-  soundLow.style.display = "none"
-  soundMedium.style.display = "none"
-  soundHigh.style.display = "none"
-} if(this.value > 0){
-  soundMute.style.display = "none"
-  soundLow.style.display = "block"
-  soundMedium.style.display = "none"
-  soundHigh.style.display = "none"
-} if(this.value > 30){
-  soundMute.style.display = "none"
-  soundLow.style.display = "none"
-  soundMedium.style.display = "block"
-  soundHigh.style.display = "none"
-} if(this.value > 70){
-  soundMute.style.display = "none"
-  soundLow.style.display = "none"
-  soundMedium.style.display = "none"
-  soundHigh.style.display = "block"
+function changeVolumeBar(){
+  if(audio.volume == 0){
+    soundMute.style.display = "block"
+    soundLow.style.display = "none"
+    soundMedium.style.display = "none"
+    soundHigh.style.display = "none"
+  } if(audio.volume > 0){
+    soundMute.style.display = "none"
+    soundLow.style.display = "block"
+    soundMedium.style.display = "none"
+    soundHigh.style.display = "none"
+  } if(audio.volume > .3){
+    soundMute.style.display = "none"
+    soundLow.style.display = "none"
+    soundMedium.style.display = "block"
+    soundHigh.style.display = "none"
+  } if(audio.volume > .7){
+    soundMute.style.display = "none"
+    soundLow.style.display = "none"
+    soundMedium.style.display = "none"
+    soundHigh.style.display = "block"
+  }
 }
 
-volumeProgress.value = this.value
+function volumeControl(val){
+ if(!isNaN(val)){
+   if(val > 0){
+     audio.volume = Math.min(1, audio.volume + 0.05) 
+     volume.value = audio.volume
+   } else if(val < 0){
+    audio.volume = Math.max(0, audio.volume - 0.05) 
+    volume.value = audio.volume
+   }
+ 
+ } else{
+  audio.volume = this.value/100
+ }
+
+ volumeProgress.value = audio.volume * 100
+
 }
+
 
 function toggleLoop(){
   repeat.classList.toggle("looping")
@@ -262,9 +272,7 @@ function skipFive(){
   audio.currentTime += 5
 }  
 
-
 // UI Functions
-
 function closeSearchInput(e){
   !e.target.classList.contains("search-glass") && !e.target.classList.contains("search-input")
   ? searchInput.classList.remove("clicked")
@@ -272,7 +280,6 @@ function closeSearchInput(e){
 }
 
 // Keyboard Functions
-
 function keyBoardFunctions(e){
   switch(e.keyCode){
     case 32:
@@ -283,22 +290,31 @@ function keyBoardFunctions(e){
     case 37:
       backFive()
     break
+
+    case 38:
+      audio.volume < 1 && e.ctrlKey ? volumeControl(0.05) : null
+      break
     
     case 39:
       skipFive()
     break
+    
+    case 40:
+      audio.volume > 0 && e.ctrlKey ?  volumeControl(-0.05): null
+      break
   }
+  
 }
 
 // Hooking Up Event Listeners
 
 // Listeners For Playback
-audio.addEventListener("loadedmetadata", setDefaultVolumeAndTrackDuration)
+audio.addEventListener("loadedmetadata", setTrackDuration)
 audio.addEventListener("play",changePlayPauseButton)
 audio.addEventListener("pause",changePlayPauseButton)
 audio.addEventListener("timeupdate",syncTimeline)
 audio.addEventListener("timeupdate",updateTime)
-
+audio.addEventListener("volumechange",changeVolumeBar)
 
 previousSong.addEventListener("click",startOver)
 backFiveSeconds.addEventListener("click",backFive)
@@ -308,9 +324,7 @@ nextSong.addEventListener("click",songAhead)
 repeat.addEventListener("click",toggleLoop)
 
 timeline.addEventListener("input",seekableTimeline)
-
 volume.addEventListener("input",volumeControl)
-
 
 // Listeners For Document
 document.addEventListener("click", closeSearchInput)
