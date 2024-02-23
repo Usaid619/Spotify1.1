@@ -41,10 +41,10 @@ function changeGreeting(){
     greeting.textContent = "Good Afternoon"
   }
   if(hour > 16 && hour < 19){
-    console.log("Good Evening")
+    greeting.textContent = "Good Evening"
   }
   if(hour > 19){
-    console.log("Good Night")
+    greeting.textContent = "Good Night"
   }
   
 }
@@ -108,7 +108,7 @@ function makeBigCardDom(songsList){
   const songsObjInStr = encodeURIComponent(JSON.stringify(songsList))
 
 return `
-<div class="big-card" onclick="playSong(this, '${songsObjInStr}')">
+<div class="big-card" onclick="setSong(this, '${songsObjInStr}')">
 <div class="big-card-img-div">
     <img src="${songsList.image_source}" alt="${songsList.song_name}">
     <div class="big-card-overlay">
@@ -166,8 +166,7 @@ function setTrackDuration(){
   timeline.max = audio.duration.toFixed(2)
 }
 
-function togglePlay(card){
-
+function changeIcon(card){
   if(!card){
     const focusedCard = document.querySelector(".focused")
 
@@ -182,15 +181,26 @@ function togglePlay(card){
   const thisPlay = card.querySelector(".fa-play")
   const thisPause = card.querySelector(".fa-pause")
 
+  audio.paused ? (thisPlay.style.display ="block",thisPause.style.display = "none") : (thisPlay.style.display ="none",thisPause.style.display = "block")
+}
+
+function togglePlay(card){
   if(audio.paused){
     audio.play()
-    thisPlay.style.display ="none"
-    thisPause.style.display = "block"
+    changeIcon(card)
   } else{
     audio.pause()
-    thisPlay.style.display ="block"
-    thisPause.style.display = "none"
+    changeIcon(card)
   }
+}
+
+function resetIcons(){
+  const allPauseIcons = document.querySelectorAll(".fa-pause")
+  const allPlayIcons = document.querySelectorAll(".fa-play")
+
+  allPauseIcons.forEach(btn => btn.style.display = "none")
+    allPlayIcons.forEach(btn => btn.style.display = "block")
+    
 }
 
 function updateTime(){
@@ -216,9 +226,7 @@ function updateTime(){
 
 let currentlyPlaying = null
 let lastCard = null
-function playSong(card,songsObjInStr){
-  const allPauseIcons = document.querySelectorAll(".fa-pause")
-  const allPlayIcons = document.querySelectorAll(".fa-play")
+function setSong(card,songsObjInStr){
 
    const songObj = JSON.parse(decodeURIComponent(songsObjInStr))
 
@@ -235,10 +243,7 @@ function playSong(card,songsObjInStr){
     currentlyPlaying = songObj.quality.high
     audio.src = currentlyPlaying
     updateUI(songObj)
-
-    allPauseIcons.forEach(btn => btn.style.display = "none")
-    allPlayIcons.forEach(btn => btn.style.display = "block")
-    
+    resetIcons()
     togglePlay(card)
    }
     
@@ -385,7 +390,9 @@ audio.addEventListener("volumechange",changeVolumeBar)
 
 previousSong.addEventListener("click",startOver)
 backFiveSeconds.addEventListener("click",backFive)
-playPause.addEventListener("click",togglePlay)
+playPause.addEventListener("click",()=>{
+  togglePlay()
+})
 skipFiveSeconds.addEventListener("click",skipFive)
 nextSong.addEventListener("click",songAhead)
 repeat.addEventListener("click",toggleLoop)
