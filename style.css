@@ -582,17 +582,12 @@ button:last-child{
 }
 
 .playlists-card-div > h3{
-    height: 37px;
-    width: 100%;
-    color: white;
-    margin-bottom: 16px;
-    font-size: clamp(24px,2.2vw,30px);
     padding-left: 18px;
 }
 
 .cards{
     display: flex;
-    gap: 17px;
+    gap: 10px;
     flex-wrap: wrap;
     padding: 14px 21px;
 }
@@ -601,9 +596,9 @@ button:last-child{
     position: relative;
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 10px;
     flex: 1 1 calc(33.33% - 20px);
-    height: 70px;
+    height: 46px;
     width: 276.63px;
     color: rgba(255, 255, 255, 0.911);
     background-color: rgba(34, 34, 34, 0.641);
@@ -658,7 +653,8 @@ button:last-child{
 .card > h3{
     letter-spacing: 1px;
     padding-right: 5px;
-    font-size: 17px;
+    font-size: 16px;
+    font-weight: 555;
 }
 
 .big-cards-div{
@@ -677,6 +673,7 @@ button:last-child{
 
 .heading{
     font-size: clamp(24px,2.2vw,28px);
+    color: white;
 }
 
 .heading-wrap > p{
@@ -780,6 +777,11 @@ button:last-child{
 
 .big-card:hover  .big-card-overlay{
     opacity: 1;
+}
+
+.fa-pause{
+   display: none;
+   margin-left: -7%;
 }
 
 /* footer */
@@ -968,10 +970,10 @@ progress::-webkit-progress-bar{
     background-color: #3D3D3D;
 }
 
-progress::-webkit-progress-inner-element{
-    /* background-color: black; */
-    /* border-radius: 100px; */
-}
+/* progress::-webkit-progress-inner-element{
+    background-color: black;
+    border-radius: 100px;
+} */
 
 progress::-webkit-progress-value{
     background-color: #cccccc;

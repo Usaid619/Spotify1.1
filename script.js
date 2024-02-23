@@ -5,6 +5,8 @@ const searchGlass = document.querySelector(".search-glass")
 const searchInput = document.querySelector(".search-input")
 const scrollDiv = document.querySelector(".right-scrollable-container")
 const header = document.querySelector(".right-header")
+const greeting = document.querySelector(".greeting")
+
 const heart = document.querySelector(".heart")
 
 // Making Functions
@@ -25,6 +27,28 @@ function toggleLike(){
   }
 }
 
+function changeGreeting(){
+  const now = new Date()
+  const hour = now.getHours()
+
+  if(hour >= 0 && hour <= 6){
+    greeting.textContent = "Good Night"
+  }
+  if(hour > 6 && hour < 12){
+    greeting.textContent = "Good Morning"
+  }
+  if(hour > 12 && hour < 16){
+    greeting.textContent = "Good Afternoon"
+  }
+  if(hour > 16 && hour < 19){
+    console.log("Good Evening")
+  }
+  if(hour > 19){
+    console.log("Good Night")
+  }
+  
+}
+
 // Hooking Up Event Listeners
 searchGlass.addEventListener("click",toggleState)
 scrollDiv.addEventListener("scroll",changeHeaderBackground)
@@ -41,6 +65,7 @@ window.addEventListener("load",init)
 // Making Functions
 function init(){
 fetchAndRenderAllSections()
+changeGreeting()
 }
 
 function fetchAndRenderAllSections(){
@@ -83,11 +108,12 @@ function makeBigCardDom(songsList){
   const songsObjInStr = encodeURIComponent(JSON.stringify(songsList))
 
 return `
-<div class="big-card" onclick="playSong('${songsObjInStr}')">
+<div class="big-card" onclick="playSong(this, '${songsObjInStr}')">
 <div class="big-card-img-div">
     <img src="${songsList.image_source}" alt="${songsList.song_name}">
     <div class="big-card-overlay">
         <i class="fa-solid fa-play"></i>
+        <i class="fa-solid fa-pause"></i>
     </div>
 </div>
 <div class="big-card-title-div">
@@ -140,11 +166,31 @@ function setTrackDuration(){
   timeline.max = audio.duration.toFixed(2)
 }
 
-function togglePlay(){
-  if(audio.src == "http://127.0.0.1:5500/"){
-    return
-  }  
-  audio.paused ? audio.play() : audio.pause()
+function togglePlay(card){
+
+  if(!card){
+    const focusedCard = document.querySelector(".focused")
+
+    if(focusedCard){
+      card = focusedCard
+    } else{
+      console.error("card not found")
+      return
+    }
+  }
+  
+  const thisPlay = card.querySelector(".fa-play")
+  const thisPause = card.querySelector(".fa-pause")
+
+  if(audio.paused){
+    audio.play()
+    thisPlay.style.display ="none"
+    thisPause.style.display = "block"
+  } else{
+    audio.pause()
+    thisPlay.style.display ="block"
+    thisPause.style.display = "none"
+  }
 }
 
 function updateTime(){
@@ -168,12 +214,34 @@ function updateTime(){
   !isNaN(progressValue) ?  progress.value = progressValue : null
 }
 
-function playSong(songsObjInStr){
-  const songObj = JSON.parse(decodeURIComponent(songsObjInStr))
-   audio.src = songObj.quality.high
-   updateUI(songObj)
-   togglePlay()
+let currentlyPlaying = null
+let lastCard = null
+function playSong(card,songsObjInStr){
+  const allPauseIcons = document.querySelectorAll(".fa-pause")
+  const allPlayIcons = document.querySelectorAll(".fa-play")
 
+   const songObj = JSON.parse(decodeURIComponent(songsObjInStr))
+
+   if(currentlyPlaying === songObj.quality.high){
+    togglePlay(card)
+    return
+   } else{
+    if(lastCard){
+       lastCard.classList.remove("focused")
+    }
+     card.classList.add("focused") 
+     lastCard = card
+
+    currentlyPlaying = songObj.quality.high
+    audio.src = currentlyPlaying
+    updateUI(songObj)
+
+    allPauseIcons.forEach(btn => btn.style.display = "none")
+    allPlayIcons.forEach(btn => btn.style.display = "block")
+    
+    togglePlay(card)
+   }
+    
    if(heart.classList.contains("liked")){
     toggleLike()
    }
@@ -249,7 +317,6 @@ function volumeControl(val){
  volumeProgress.value = audio.volume * 100
 
 }
-
 
 function toggleLoop(){
   repeat.classList.toggle("looping")
