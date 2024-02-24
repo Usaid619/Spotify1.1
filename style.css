@@ -742,12 +742,13 @@ button:last-child{
 
 }
 
-.big-card-title-div > p{
+.big-card-title-div > span{
+    width: max-content;
     font-size: 14px;
     color: #c0bfbf;
 }
 
-.big-card-title-div > p:hover{
+.big-card-title-div > span:hover{
     text-decoration: underline;
 }
 
@@ -759,29 +760,40 @@ button:last-child{
     color: #000;
     box-shadow: 0px 2px 3px #464545;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    height: 60px;
-    width: 60px;
+    top:70%;
+    right: 4%;
+    height: 46px;
+    width: 46px;
     font-size: 32px;
     opacity: 0;
     border-radius: 50%;
     padding-left: 3%;
-    transition: all .3s ease;
+    transition: all .2s ease;
 }
 
 .big-card-overlay:hover{
-    background-color: rgb(27, 204, 92);
+    background-color: rgb(32, 230, 104);
+    scale: 1.05;
 }
+
+.big-card-overlay:active{
+    background-color: rgb(23, 187, 83);
+    scale: 1.02;
+}
+
 
 .big-card:hover  .big-card-overlay{
     opacity: 1;
+    top:66%;
+}
+
+.fa-pause,.fa-play{
+    font-size: 24px;
 }
 
 .fa-pause{
    display: none;
-   margin-left: -7%;
+   margin-left: -11%;
 }
 
 /* footer */
@@ -1061,7 +1073,7 @@ progress::-webkit-progress-value{
     .big-card-title-div > h3{
         font-size: 14px;
     }
-    .big-card-title-div > p{
+    .big-card-title-div > span{
         font-size: 12px;
     }
 
@@ -1087,7 +1099,7 @@ progress::-webkit-progress-value{
     .big-card-title-div > h3{
         font-size: 12px;
     }
-    .big-card-title-div > p{
+    .big-card-title-div > span{
         font-size: 10px;
     }
 
@@ -1107,7 +1119,7 @@ progress::-webkit-progress-value{
         font-size: 20px;
     }
 
-    .big-card-title-div > p{
+    .big-card-title-div > span{
         font-size: 14px;
     }
 

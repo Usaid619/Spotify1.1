@@ -118,7 +118,7 @@ return `
 </div>
 <div class="big-card-title-div">
     <h3>${songsList.song_name}</h3>
-    <p>${songsList.singers}</p>
+    <span>${songsList.singers}</span>
 </div>
 </div>
 `
