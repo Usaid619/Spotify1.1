@@ -627,19 +627,20 @@ button:last-child{
     height: 38px;
     width: 38px;
     border-radius: 50%;
-    padding-left: 1%;
+    /* padding-left: 1%; */
     background-color: rgb(31, 223, 100);
     transition: all .2s ease;
     box-shadow: 0px 2px 3px #464545;
 }
 
 .overlay:hover{
-    background-color: rgb(27, 204, 92);
+    background-color: rgb(32, 230, 104);
     scale: 1.02;
 }
-.overlay > * {
+.overlay > .fa-solid {
     color: #000;
     font-size: 18px;
+    margin-left: 7%;
 }
 
 .card:hover .overlay{
@@ -788,7 +789,7 @@ button:last-child{
 }
 
 .fa-pause,.fa-play{
-    font-size: 24px;
+    font-size: 80%;
 }
 
 .fa-pause{
@@ -1020,9 +1021,6 @@ progress::-webkit-progress-value{
 }
 
 .controls input{
-    /* position: relative;
-    z-index: 3;  */
-    /* cursor: pointer; */
     width: 100%;
 }
 
